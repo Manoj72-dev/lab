@@ -1,8 +1,8 @@
 import './App.css';
-import LoginPage from './LoginPage.jsx';
+import HomePage from './pages/HomePage.jsx';
 function App() {
   return (
-    <LoginPage />
+      <HomePage />
   );
 }
 
