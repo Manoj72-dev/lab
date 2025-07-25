@@ -1,16 +1,5 @@
-nav.sidebar{
-    background-color: gray;
-    color: white;
-}
-ul.nav-items{
-    padding: 3rem;
-}
-ul.nav-items li {
-    padding: 0.7rem;
+div.sidebar{
+    text-align: center;
+    
 }
 
-div.homepage{
-    display: grid;
-    grid-template-columns: 20% 1fr;
-    grid-template-rows: 100%;
-}
