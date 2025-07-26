@@ -1,5 +1,32 @@
-div.sidebar{
-    text-align: center;
-    
+div.sidebars{
+    padding-right: 1rem;
+}
+div.sidebars li{
+    list-style: none; 
 }
 
+div.box-noti{
+    background-color: white;
+    margin: 1rem;
+    border-radius: 0.7rem;
+    min-height: 28vh;
+}
+
+div.inner-noti{
+    padding: 1rem 2rem;
+    font-size: larger;
+    font-weight: 500;
+
+}
+
+ul.noti-list {
+    overflow-y: scroll;
+    height: 100px;
+    scrollbar-width: none;
+}
+
+
+
+ul.noti-list li{
+    padding-bottom: 1rem;
+}

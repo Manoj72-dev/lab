@@ -1,26 +1,35 @@
 div.homepage{
-    display: flex;
-    flex-direction: row;
-    height: 100%;
-    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+    min-height: 100vh;
+    background: rgb(233, 236, 238);
 }
 
 div.sidebar{
-    background-color: rgb(87, 86, 86);
-  
+    background-color: rgb(71, 71, 77);
 }
 
-div.sidbar h1{
+header{
     color:white;
+    font-size: 2rem;
+    font-weight: 1000;
+    padding: 1.5rem;
 }
+
+div.sidebar hr{
+    color: gray;
+}
+
 div.main-content{
-    display: flex;
-    flex-direction: column;
-  
+    display: grid;
+    grid-template-rows: 2fr 1fr;
+    max-width: 100%;
 }
+
 div.cards{
    
 }
+
 div.noti{
-   
+  
 }
