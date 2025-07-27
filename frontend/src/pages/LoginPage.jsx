@@ -5,13 +5,30 @@ function LoginPage({onLoginSuccess}) {
     const [password, setPassword] = useState('');   
     const [error, setError] = useState('');
     
-    const handleLogin = (e) =>{
-        e.preventDefault();
-        if(studentId === '220112460' && password === '@Manoj000'){
-            onLoginSuccess();
-        }
-        else {
-            setError('Invalid Student ID or Password');
+    const handleLogin = async(e) =>{
+        e.preventDefault()
+        try{
+            const response = await fetch("http://localhost:5000/api/auth/login",{
+                method:'POST',
+                headers:{
+                    "content-type" : "application/json"
+                },
+                body: JSON.stringify({studentId,password})
+            });
+            const check = await response.json();
+            console.log(check);
+            if (response.ok & check.message){
+                onLoginSuccess();
+            }
+            else{
+                setPassword('')
+                setStudentId('')
+                setError("Invalid studentId or Password");
+            }
+        }catch{
+            setPassword('')
+            setStudentId('')
+            setError("server error")
         }
     }
 
@@ -34,13 +51,13 @@ function LoginPage({onLoginSuccess}) {
                             <input type="password" value={password} onChange = {(e)=> setPassword(e.target.value)} required/>
                         </label>
                         {error && <p style={{color:'red' , fontSize:'0.9rem'}}>{error}</p>}
-                        <button type="submit" >Login</button>
+                        <button type="submit" disabled={!studentId || !password}>Login</button>
                     </form>
                 </div>
             </div>
 
             <footer className="login-footer">
-                <p>© 2023 Your Company</p>
+                <p>© 2025 My Company</p>
             </footer>
         </div>
     )

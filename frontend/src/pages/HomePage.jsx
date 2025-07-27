@@ -36,8 +36,6 @@ function HomePage({onLogout}) {
                         <Route path='/logout' element={<Logout onLogout={onLogout}/>} />
                         <Route path='*' element={<Profile/>} />
                     </Routes>
-                </div>
-                <div className='noti'>
                     <Notif/>
                 </div>
             </div>

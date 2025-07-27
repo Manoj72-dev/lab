@@ -1,7 +1,7 @@
 function Fees(){
     return(
-        <div>
-            This is the Fees section.
+        <div className="">
+            
         </div>
     )
 }
