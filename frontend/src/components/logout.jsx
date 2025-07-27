@@ -1,7 +1,11 @@
-function Logout(){
+import {useEffect} from 'react';
+function Logout({onLogout}){
+    useEffect(()=>{
+        if(onLogout) onLogout();
+    },[onLogout]);
     return(
         <div>
-            This is Logout section.
+            Logging you out......        
         </div>
     )
 }

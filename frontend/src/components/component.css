@@ -30,3 +30,37 @@ ul.noti-list {
 ul.noti-list li{
     padding-bottom: 1rem;
 }
+
+
+div.profile-container{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    padding: 1rem;
+    gap: 1rem;
+    
+
+}
+
+div.img-box{
+    display: flex;
+    flex-direction: column;
+  
+    background-color: white;
+    padding: 1rem;
+    border-radius: 0.7rem;
+}
+
+
+img.profile-img{
+    align-self: center;
+    border-radius: 50%;
+    border: solid black 1px;
+    padding: 0.5rem;
+}
+
+div.info-box{
+    background-color: white;
+        border-radius: 0.7rem;
+
+}
+

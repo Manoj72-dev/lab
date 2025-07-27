@@ -24,8 +24,11 @@ div.main-content{
     display: grid;
     grid-template-rows: 2fr 1fr;
     max-width: 100%;
+    min-height: 70vh;
 }
-
+div.main-content .header{
+    min-height: 13vh;
+}
 div.cards{
    
 }

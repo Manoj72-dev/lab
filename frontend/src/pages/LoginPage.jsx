@@ -1,6 +1,6 @@
 import React,{useState} from 'react';
 import './login.css';
-function LoginPage() {
+function LoginPage({onLoginSuccess}) {
     const [studentId, setStudentId] = useState('');
     const [password, setPassword] = useState('');   
     const [error, setError] = useState('');
@@ -8,7 +8,7 @@ function LoginPage() {
     const handleLogin = (e) =>{
         e.preventDefault();
         if(studentId === '220112460' && password === '@Manoj000'){
-            alert('Login successful!');
+            onLoginSuccess();
         }
         else {
             setError('Invalid Student ID or Password');

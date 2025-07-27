@@ -1,14 +1,15 @@
 import React from "react";
 import {
-  FaTachometerAlt,
   FaUserCircle,
   FaCalendarCheck,
   FaMoneyBillWave,
   FaBook,
-  FaSignOutAlt
+  FaSignOutAlt,
 } from "react-icons/fa";
 import { MdSchool } from "react-icons/md";
 import { NavLink } from "react-router-dom";
+import { TbLayoutDashboardFilled } from "react-icons/tb";
+
 import "./component.css";
 
 const Sidebar = () => {
@@ -35,7 +36,7 @@ const Sidebar = () => {
         </li>
         <li>
           <NavLink to="/dashboard" style={linkStyle}>
-            <FaTachometerAlt /> Dashboard
+            <TbLayoutDashboardFilled /> Dashboard
           </NavLink>
         </li>
         <li>
