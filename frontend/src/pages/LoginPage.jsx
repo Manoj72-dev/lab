@@ -16,8 +16,9 @@ function LoginPage({onLoginSuccess}) {
                 body: JSON.stringify({studentId,password})
             });
             const check = await response.json();
-            console.log(check);
+            
             if (response.ok & check.message){
+                sessionStorage.setItem("student",JSON.stringify(check)) 
                 onLoginSuccess();
             }
             else{

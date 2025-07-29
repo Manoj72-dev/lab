@@ -21,8 +21,8 @@ div.sidebar hr{
 }
 
 div.main-content{
-    display: grid;
-    grid-template-rows: 2fr 1fr;
+    display: flexbox;
+    flex-direction: row;
     max-width: 100%;
     min-height: 70vh;
 }
