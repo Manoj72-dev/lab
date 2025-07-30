@@ -1,4 +1,6 @@
-import {useState, useEffect} from 'react';
+import React,{useState, useEffect} from 'react';
+
+import './attendance.css'
 function Attendance(){
     const [attendanceData, setAttendence] = useState([]);
     
@@ -20,11 +22,33 @@ function Attendance(){
             }
         };
          fetchAttendence();
+         
     },[])
     
     return(
-        <div>
-            {attendanceData.attendance}
+        <div className='container'>
+            <div className='table-container'>
+                <table>
+                <thead>
+                    <tr>
+                        <th> Subject Code </th>
+                        <th> Subject </th>
+                        <th> Faculty </th>
+                        <th> Attendence </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {Object.entries(attendanceData).map(([code,info])=>(
+                        <tr key={code}>
+                            <td> {code} </td>
+                            <td> {info.name} </td>
+                            <td> {info.faculty} </td>
+                            <td> {info.attendance} </td>
+                        </tr>
+                    ))}
+                </tbody>
+                </table>
+            </div>
         </div>
     )
 }

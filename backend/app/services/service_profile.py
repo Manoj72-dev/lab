@@ -9,7 +9,7 @@ def student_profile(studentid):
         'dob' : '20-10-2005',
         'Email' : 'manojchauhan0326@gmail.com',
         'Course' : 'B.tech',
-        'Specialization' : '',
+        'Specialization' : 'none',
         'branch' : 'CSE',
         'year' : '3',
         'sem' : '6',

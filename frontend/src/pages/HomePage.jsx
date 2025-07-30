@@ -23,7 +23,7 @@ function HomePage({onLogout}) {
             <div className='main-content'>
                 <div className='cards'>
                     <div className='header'>
-                        <FaUserAlt/>
+                    
                     </div>
                     <hr />
                     <Routes>
