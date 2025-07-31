@@ -1,9 +1,43 @@
 .container{
-    display: grid;
+    display: flex;
     padding: 1rem;
+    gap: 1rem;
 }
 .table-container{
     background-color: white;
     border-radius: 0.7rem;
-    padding: 1rem;
+    padding: 2rem;
+}
+
+.attendece-table{
+    color: #47474d;
+}
+thead{
+    background-color: #47474d;
+    color: white;
+    
+}
+th{
+    padding: 0.5rem;
+}
+tbody{
+    background-color: rgb(225, 232, 236);
+    
+}
+tr.selected:hover{
+    background: rgb(209, 209, 233);
+    cursor: pointer;
+}
+
+td{
+    text-align: center;
+    padding: 0.5rem;
+    
+}
+
+.subject-card-container{
+    background-color: white;
+    border-radius: 0.7rem;
+    padding: 2rem;
+
 }

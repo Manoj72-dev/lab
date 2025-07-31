@@ -19,7 +19,7 @@ function Profile(){
         <div className="profile-container">
             <div className="img-box">
                 <img src="" alt=""  />
-                <div className="box"> Name: {profile.Name} </div>
+                <div className="box"> <strong> Name: </strong> {profile.Name} </div>
                 <div className="box"> Student ID: {profile.Studentid} </div>
                 <div className="box"> University Roll.no: {profile.uniRollno} </div>
             </div>
@@ -35,8 +35,6 @@ function Profile(){
                 <div className="box"> Semester: {profile.sem} </div>
                 <div className="box"> Section: {profile.Section} </div>
                 <div className="box"> Roll.no: {profile.Rollno} </div>
-
-                
             </div>
         </div>
     )
