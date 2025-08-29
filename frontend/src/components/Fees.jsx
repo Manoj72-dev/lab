@@ -1,7 +1,7 @@
 function Fees(){
     return(
-        <div className="">
-            
+        <div >
+            fees
         </div>
     )
 }
