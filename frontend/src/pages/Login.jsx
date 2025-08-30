@@ -1,109 +1,167 @@
-import React, { useState, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
+import { Eye, EyeOff, GraduationCap } from "lucide-react";
 
-function LoginPage() {
+export default function Login() {
   const [studentId, setStudentId] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const { login } = useContext(AuthContext);
-  const navigate = useNavigate();
+  const [showPassword, setShowPassword] = useState(false);
+  const [capsLock, setCapsLock] = useState(false);
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setError("");
+  const isFormValid = studentId.trim() !== "" && password.trim() !== "";
 
-    try {
-      
-      const res = await fetch("/api/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ studentId, password }),
-      });
+  const handleLogin = () => {
+    if (!isFormValid) return;
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  };
 
-      const data = await res.json();
-
-      if (res.ok && data.success) {
-        await login(studentId);
-        navigate("/home");
-      } else {
-        setPassword("");
-        setStudentId("");
-        setError(data.message || "Invalid Student ID or Password");
-      }
-    } catch {
-      setError("Server error. Please try again later.");
-    }
+  const handleCapsLock = (e) => {
+    setCapsLock(e.getModifierState("CapsLock"));
   };
 
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col">
-      
+    <div className="flex items-center justify-center min-h-screen bg-gray-900 relative font-sans px-4 overflow-hidden">
+      {/* Gradient Background Blobs */}
+      <motion.div
+        className="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-30 blur-3xl -z-10"
+        animate={{ x: [0, 60, 0], y: [0, 60, 0] }}
+        transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute w-[400px] h-[400px] rounded-full bg-gradient-to-r from-blue-400 via-cyan-400 to-teal-400 opacity-25 blur-3xl -z-10"
+        animate={{ x: [0, -50, 0], y: [0, -50, 0] }}
+        transition={{ duration: 18, repeat: Infinity, ease: "easeInOut" }}
+      />
+      <motion.div
+        className="absolute w-[450px] h-[450px] rounded-full bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 opacity-20 blur-3xl -z-10"
+        animate={{ x: [0, 40, 0], y: [0, -40, 0] }}
+        transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
+      />
 
-      {/* Centered card */}
-      <div className="flex-1 flex items-center justify-center px-4">
-        <div className="w-full max-w-md bg-white border border-gray-200 rounded-2xl shadow-sm p-6">
-          <h1 className="text-3xl font-bold text-gray-800 mb-6 text-center">
-            Login
-          </h1>
-
-          <form onSubmit={handleLogin} className="space-y-5">
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Student ID
-              </label>
-              <input
-                type="text" /* use text to avoid stripping leading zeros */
-                inputMode="numeric"
-                value={studentId}
-                onChange={(e) => {
-                  setStudentId(e.target.value);
-                  setError("");
-                }}
-                className="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                placeholder="Enter your Student ID"
-                required
-              />
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
-                Password
-              </label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                  setError("");
-                }}
-                className="w-full px-4 py-2 rounded-lg border border-gray-300 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500"
-                placeholder="Enter your password"
-                required
-              />
-            </div>
-
-            {error && (
-              <p className="text-red-600 text-sm text-center">{error}</p>
-            )}
-
-            <button
-              type="submit"
-              disabled={!studentId || !password}
-              className="w-full py-2 rounded-lg font-semibold text-white bg-indigo-600 hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
+      {/* Login Card */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.6 }}
+        className="flex flex-col md:flex-row w-full max-w-5xl h-auto md:h-[540px] rounded-3xl overflow-hidden shadow-2xl relative z-10"
+      >
+        {/* Left Section */}
+        <div className="w-full md:w-1/2 relative h-64 md:h-auto">
+          <img
+            src="/img/img.png" // <-- image from public/img/img.png
+            alt="University Campus"
+            className="w-full h-full object-cover filter brightness-75 grayscale"
+          />
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+            <motion.p
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.3 }}
+              className="text-3xl md:text-4xl font-bold text-white drop-shadow-md"
             >
-              Login
-            </button>
-          </form>
-
-          
+              Welcome to Campus Life,
+            </motion.p>
+            <motion.p
+              initial={{ y: 20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              transition={{ delay: 0.5 }}
+              className="text-3xl md:text-4xl font-bold text-white drop-shadow-md"
+            >
+              Empowering Students
+            </motion.p>
+          </div>
         </div>
-      </div>
-      <footer className="p-6 text-center text-xs text-gray-500">
-            © 2025 My Company
-          </footer>
+
+        {/* Right Section */}
+        <div className="w-full md:w-1/2 bg-gray-800/70 backdrop-blur-xl border border-gray-700/50 p-10 flex flex-col justify-center text-gray-100 rounded-r-3xl">
+          {/* Header */}
+          <div className="mb-8 text-center md:text-left">
+            <h2 className="text-3xl font-bold mb-2 flex items-center gap-3">
+              <GraduationCap className="w-7 h-7 text-gray-300" />
+              Student Portal Login
+            </h2>
+            <p className="text-gray-300 text-sm">
+              Don’t have an account? Contact Admin
+            </p>
+          </div>
+
+          {/* Form */}
+          <form className="flex flex-col gap-5">
+            {/* Student ID */}
+            <motion.input
+              whileFocus={{ scale: 1.02 }}
+              type="text"
+              placeholder="Student ID"
+              value={studentId}
+              onChange={(e) => setStudentId(e.target.value)}
+              className="w-full p-4 rounded-xl bg-gray-700 border border-gray-600 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+            />
+
+            {/* Password */}
+            <div className="relative">
+              <motion.input
+                whileFocus={{ scale: 1.02 }}
+                type={showPassword ? "text" : "password"}
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                onKeyUp={handleCapsLock}
+                className="w-full p-4 rounded-xl bg-gray-700 border border-gray-600 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
+              />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-4 top-4 text-gray-300 hover:text-white transition"
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
+              {capsLock && (
+                <p className="text-xs text-yellow-400 mt-1">⚠️ Caps Lock is ON</p>
+              )}
+            </div>
+
+            {/* Forgot Password */}
+            <div className="flex justify-center">
+              <button
+                type="button"
+                className="text-sm text-gray-300 hover:underline"
+              >
+                Forgot Password?
+              </button>
+            </div>
+
+            {/* Login Button */}
+            <motion.button
+              whileHover={{ scale: isFormValid ? 1.05 : 1 }}
+              whileTap={{ scale: isFormValid ? 0.95 : 1 }}
+              disabled={!isFormValid || loading}
+              onClick={handleLogin}
+              className={`w-full py-4 rounded-xl font-semibold transition flex items-center justify-center gap-3 ${
+                isFormValid
+                  ? "bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 cursor-pointer"
+                  : "bg-gray-600 cursor-not-allowed"
+              }`}
+            >
+              {loading ? (
+                <>
+                  <motion.div
+                    className="w-5 h-5 border-2 border-gray-200 border-t-transparent rounded-full animate-spin"
+                    animate={{ rotate: 360 }}
+                    transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                  />
+                  Authenticating...
+                </>
+              ) : (
+                "Login"
+              )}
+            </motion.button>
+          </form>
+        </div>
+      </motion.div>
     </div>
   );
 }
-
-export default LoginPage;
