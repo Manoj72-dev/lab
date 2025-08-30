@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useState , useContext} from "react";
 import { motion } from "framer-motion";
 import { Eye, EyeOff, GraduationCap } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import {AuthContext} from "../context/AuthContext.jsx";
 
 export default function Login() {
   const [studentId, setStudentId] = useState("");
@@ -8,15 +10,42 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [capsLock, setCapsLock] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
+  const { login } = useContext(AuthContext); 
+  const navigate = useNavigate();
 
   const isFormValid = studentId.trim() !== "" && password.trim() !== "";
 
-  const handleLogin = () => {
-    if (!isFormValid) return;
+  const handleLogin = async (e) => {
+    e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
+    setMessage("");
+
+    try {
+      const res = await fetch("/api/auth/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ studentId, password }),
+      });
+
+      const data = await res.json();
+
+      if (res.ok) {
+        sessionStorage.setItem("student", JSON.stringify(data.student));
+        sessionStorage.setItem("token", data.token);
+        
+        setMessage("✅ Login successful!");
+        setTimeout(() => navigate("/home"), 1000);
+        login(data.student); // redirect after 1s
+      } else {
+        setMessage("❌ " + (data.message || "Invalid credentials"));
+      }
+    } catch (err) {
+      console.error("Login error:", err);
+      setMessage("⚠️ Server error. Try again later.");
+    } finally {
       setLoading(false);
-    }, 2000);
+    }
   };
 
   const handleCapsLock = (e) => {
@@ -25,7 +54,7 @@ export default function Login() {
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-900 relative font-sans px-4 overflow-hidden">
-      {/* Gradient Background Blobs */}
+      {/* Floating Background Blobs */}
       <motion.div
         className="absolute w-[500px] h-[500px] rounded-full bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 opacity-30 blur-3xl -z-10"
         animate={{ x: [0, 60, 0], y: [0, 60, 0] }}
@@ -52,7 +81,7 @@ export default function Login() {
         {/* Left Section */}
         <div className="w-full md:w-1/2 relative h-64 md:h-auto">
           <img
-            src="/img/img.png" // <-- image from public/img/img.png
+            src="/img/img.png"
             alt="University Campus"
             className="w-full h-full object-cover filter brightness-75 grayscale"
           />
@@ -78,7 +107,6 @@ export default function Login() {
 
         {/* Right Section */}
         <div className="w-full md:w-1/2 bg-gray-800/70 backdrop-blur-xl border border-gray-700/50 p-10 flex flex-col justify-center text-gray-100 rounded-r-3xl">
-          {/* Header */}
           <div className="mb-8 text-center md:text-left">
             <h2 className="text-3xl font-bold mb-2 flex items-center gap-3">
               <GraduationCap className="w-7 h-7 text-gray-300" />
@@ -90,8 +118,7 @@ export default function Login() {
           </div>
 
           {/* Form */}
-          <form className="flex flex-col gap-5">
-            {/* Student ID */}
+          <form onSubmit={handleLogin} className="flex flex-col gap-5">
             <motion.input
               whileFocus={{ scale: 1.02 }}
               type="text"
@@ -101,7 +128,6 @@ export default function Login() {
               className="w-full p-4 rounded-xl bg-gray-700 border border-gray-600 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400 transition"
             />
 
-            {/* Password */}
             <div className="relative">
               <motion.input
                 whileFocus={{ scale: 1.02 }}
@@ -120,7 +146,9 @@ export default function Login() {
                 {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
               {capsLock && (
-                <p className="text-xs text-yellow-400 mt-1">⚠️ Caps Lock is ON</p>
+                <p className="text-xs text-yellow-400 mt-1">
+                  ⚠️ Caps Lock is ON
+                </p>
               )}
             </div>
 
@@ -136,13 +164,13 @@ export default function Login() {
 
             {/* Login Button */}
             <motion.button
+              type="submit"
               whileHover={{ scale: isFormValid ? 1.05 : 1 }}
               whileTap={{ scale: isFormValid ? 0.95 : 1 }}
               disabled={!isFormValid || loading}
-              onClick={handleLogin}
               className={`w-full py-4 rounded-xl font-semibold transition flex items-center justify-center gap-3 ${
                 isFormValid
-                  ? "bg-gradient-to-r from-gray-500 to-gray-600 hover:from-gray-600 hover:to-gray-700 cursor-pointer"
+                  ? "bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 cursor-pointer"
                   : "bg-gray-600 cursor-not-allowed"
               }`}
             >
@@ -151,7 +179,11 @@ export default function Login() {
                   <motion.div
                     className="w-5 h-5 border-2 border-gray-200 border-t-transparent rounded-full animate-spin"
                     animate={{ rotate: 360 }}
-                    transition={{ repeat: Infinity, duration: 1, ease: "linear" }}
+                    transition={{
+                      repeat: Infinity,
+                      duration: 1,
+                      ease: "linear",
+                    }}
                   />
                   Authenticating...
                 </>
@@ -160,6 +192,10 @@ export default function Login() {
               )}
             </motion.button>
           </form>
+
+          {message && (
+            <p className="mt-4 text-center text-sm font-medium">{message}</p>
+          )}
         </div>
       </motion.div>
     </div>

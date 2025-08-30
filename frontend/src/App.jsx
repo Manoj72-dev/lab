@@ -9,13 +9,11 @@ function AppRoutes() {
 
   return (
     <Routes>
-      {/* Login page */}
       <Route
         path="/"
         element={user ? <Navigate to="/home" replace /> : <LoginPage />}
       />
 
-      {/* Home layout route */}
       <Route
         path="/home/*"
         element={user ? <HomePage /> : <Navigate to="/" replace />}
