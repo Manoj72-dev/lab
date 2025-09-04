@@ -7,7 +7,7 @@ const demoStudent = {
 };
 
 
-const loginStudent = async (req, res) => {
+export const login = async (req, res) => {
   try {
     const { studentId, password } = req.body;
 
@@ -35,6 +35,3 @@ const loginStudent = async (req, res) => {
   }
 };
 
-module.exports = {
-  loginStudent,
-};

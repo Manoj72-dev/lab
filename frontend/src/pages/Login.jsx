@@ -36,7 +36,7 @@ export default function Login() {
         
         setMessage("✅ Login successful!");
         setTimeout(() => navigate("/home"), 1000);
-        login(data.student); // redirect after 1s
+        login(data.student); 
       } else {
         setMessage("❌ " + (data.message || "Invalid credentials"));
       }
@@ -71,14 +71,12 @@ export default function Login() {
         transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
       />
 
-      {/* Login Card */}
       <motion.div
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.6 }}
         className="flex flex-col md:flex-row w-full max-w-5xl h-auto md:h-[540px] rounded-3xl overflow-hidden shadow-2xl relative z-10"
       >
-        {/* Left Section */}
         <div className="w-full md:w-1/2 relative h-64 md:h-auto">
           <img
             src="/img/img.png"
